@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>bgu</title>
+  </head>
+  <body>
+    <header>
+      <h1>bgu -- URL-Shortener -- Inspired by Code Garden</h1>
+    </header>
+    <main id="app">
+      <form @submit.prevent="createUrl()">
+        <div v-if="error" class="error">
+          {{error}}
+        </div>
+        <input
+          placeholder="Enter a URL"
+          v-model="url"
+          type="text"
+          name="url"
+          id="url"
+        />
+        <input
+          placeholder="Enter a Slug [Optional]"
+          v-model="slug"
+          type="text"
+          name="slug"
+          id="slug"
+        />
+        <button type="submit">Create</button>
+      </form>
+      <div v-if="created">
+        <p class="created">
+          Your short URL is: <a :href="created">{{created}}</a>
+        </p>
+      </div>
+    </main>
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

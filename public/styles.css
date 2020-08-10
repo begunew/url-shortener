@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+header h1 {
+  margin: 1rem;
+  text-align: center;
+}
+
+#app {
+  width: 60%;
+  margin: 0 auto;
+}
