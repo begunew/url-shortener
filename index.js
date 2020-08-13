@@ -71,6 +71,7 @@ app.post("/url", async (req, res, next) => {
     res.json(created);
   } catch (error) {
     next(error);
+    console.log(error);
   }
 });
 
