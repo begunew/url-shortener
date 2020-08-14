@@ -1,5 +1,5 @@
 class Urlshort extends React.Component {
-  state = { url: "", error: "", slug: "", created: null };
+  state = { url: "", error: "", slug: "", vis: false, created: null };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -32,7 +32,11 @@ class Urlshort extends React.Component {
     });
     if (response.ok) {
       const result = await response.json();
-      this.setState({ created: `http://localhost:3000/${result.slug}` });
+
+      this.setState({
+        vis: true,
+        created: `http://localhost:3000/${result.slug}`,
+      });
     } else {
       const result = await response.json();
       this.setState({ error: result.message });
@@ -43,32 +47,40 @@ class Urlshort extends React.Component {
     return (
       <div>
         <form onSubmit={this.createUrl}>
-          <div className="error">{this.state.error}</div>
-          <input
-            placeholder="Enter a URL"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.url}
-            name="url"
-            id="url"
-          />
-          <input
-            placeholder="Enter a Slug [Optional]"
-            type="text"
-            value={this.state.slug}
-            onChange={this.handleChange}
-            name="slug"
-            id="slug"
-          />
-          <button type="submit">Create</button>
+          <div className="container">
+            <div className="error">
+              <h3>{this.state.error.toUpperCase()}</h3>
+            </div>
+            <input
+              placeholder="Enter a URL"
+              type="text"
+              autocomplete="off"
+              onChange={this.handleChange}
+              value={this.state.url}
+              name="url"
+              id="url"
+            />
+            <input
+              placeholder="Enter a Slug [Optional]"
+              type="text"
+              autocomplete="off"
+              value={this.state.slug}
+              onChange={this.handleChange}
+              name="slug"
+              id="slug"
+            />
+            <button type="submit">Create</button>
+          </div>
         </form>
-        <div>
-          <p className="created">
-            Your short URL is:{" "}
-            <a id="created" href={this.state.created}>
+        <div className="url-created">
+          <p className={this.state.vis ? "created" : "created-hid"}>
+            Your short URL is: <br />
+            <a id="created" target="_blank" href={this.state.created}>
               {this.state.created}
             </a>{" "}
-            <button onClick={this.copyLink}>Copy</button>
+            <button id="copy-but" onClick={this.copyLink}>
+              Copy
+            </button>
           </p>
         </div>
       </div>
